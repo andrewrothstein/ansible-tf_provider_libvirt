@@ -1,0 +1,40 @@
+---
+- name: resolve platform specific vars
+  include_vars: '{{ item }}'
+  with_first_found:
+    - files:
+        - '{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml'
+        - '{{ ansible_distribution }}.yml'
+        - '{{ ansible_os_family }}.yml'
+      skip: true
+      paths:
+        - '{{ role_path }}/vars'
+- name: check for {{ tfp_libvirt_install_dir }}
+  stat:
+    path: '{{ tfp_libvirt_install_dir }}'
+  changed_when: False
+  register: tfp_libvirt_binary
+- when: not tfp_libvirt_binary.stat.exists
+  block:
+    - name: mkdir {{ tfp_libvirt_install_dir }}...
+      file:
+        path: '{{ tfp_libvirt_install_dir }}'
+        state: directory
+        mode: 0700
+    - name: downloading {{ tfp_libvirt_url }} to {{ tfp_libvirt_tmp_tgz }}
+      get_url:
+        url: '{{ tfp_libvirt_url }}'
+        dest: '{{ tfp_libvirt_tmp_tgz }}'
+        checksum: '{{ tfp_libvirt_checksum }}'
+        mode: 0644
+    - name: unarchiving {{ tfp_libvirt_tmp_tgz }} into {{ tfp_libvirt_install_dir }}...
+      unarchive:
+        remote_src: yes
+        src: '{{ tfp_libvirt_tmp_tgz }}'
+        dest: '{{ tfp_libvirt_install_dir }}'
+        creates: '{{ tfp_libvirt_fq_exe }}'
+  always:
+    - name: rm {{ tfp_libvirt_tmp_tgz }}
+      file:
+        path: '{{ tfp_libvirt_tmp_tgz }}'
+        state: absent

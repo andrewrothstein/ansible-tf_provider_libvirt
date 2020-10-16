@@ -1,0 +1,18 @@
+---
+# vars file for tf_provider_libvirt
+tfp_libvirt_os_distro: '{{ tfp_libvirt_os_distro_override | default(ansible_distribution) }}'
+tfp_libvirt_os_distro_ver: '{{ tfp_libvirt_os_distro_ver_override | default(ansible_distribution_version) }}'
+
+tfp_libvirt_name: 'terraform-provider-libvirt-{{ tfp_libvirt_ver }}'
+tfp_libvirt_urlprefix: '{{ tfp_libvirt_mirror }}/v{{ tfp_libvirt_ver }}'
+tfp_libvirt_checksum: 'sha256:{{ tfp_libvirt_urlprefix }}/{{ tfp_libvirt_name }}.sha256'
+
+tfp_libvirt_platform: '{{ tfp_libvirt_os_distro }}_{{ tfp_libvirt_os_distro_ver }}.{{ tfp_libvirt_arch }}'
+tfp_libvirt_tgz: '{{ tfp_libvirt_name }}+{{ tfp_libvirt_gitstamp }}.{{ tfp_libvirt_platform }}.tar.gz'
+tfp_libvirt_url: '{{ tfp_libvirt_urlprefix }}/{{ tfp_libvirt_tgz }}'
+
+
+tfp_libvirt_install_dir: '{{ ansible_env.HOME }}/.local/share/terraform/plugins/registry.terraform.io/dmacivar/libvirt/{{ tfp_libvirt_ver }}/{{ tfp_libvirt_os }}_{{ tfp_libvirt_arch }}'
+tfp_libvirt_tmp_tgz: '{{ tfp_libvirt_install_dir }}/{{ tfp_libvirt_tgz }}'
+tfp_libvirt_fq_exe: '{{ tfp_libvirt_install_dir }}/terraform-provider-libvirt'
+

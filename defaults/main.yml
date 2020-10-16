@@ -1,0 +1,7 @@
+---
+# defaults file for tf_provider_libvirt
+tfp_libvirt_ver: 0.6.2
+tfp_libvirt_gitstamp: git.1585292411.8cbe9ad0
+tfp_libvirt_mirror: https://github.com/dmacvicar/terraform-provider-libvirt/releases/download
+tfp_libvirt_os: linux
+tfp_libvirt_arch: amd64

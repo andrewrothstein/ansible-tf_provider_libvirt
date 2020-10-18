@@ -1,2 +1,11 @@
 ---
-
+tfp_libvirt_os_pkgs:
+  - qemu-kvm
+  - libvirt-dev
+  - virtinst
+  - virt-viewer
+  - libguestfs-tools
+  - virt-manager
+  - uuid-runtime
+  - linux-source
+  - libosinfo-bin

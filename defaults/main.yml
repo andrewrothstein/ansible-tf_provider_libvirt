@@ -5,3 +5,7 @@ tfp_libvirt_gitstamp: git.1585292411.8cbe9ad0
 tfp_libvirt_mirror: https://github.com/dmacvicar/terraform-provider-libvirt/releases/download
 tfp_libvirt_os: linux
 tfp_libvirt_arch: amd64
+
+## home directory for placing terraform plugins
+## defaults to ansible_env.HOME
+#tfp_libvirt_home_dir: /home/ci-robot

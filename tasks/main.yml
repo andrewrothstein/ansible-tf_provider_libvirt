@@ -9,6 +9,12 @@
       skip: true
       paths:
         - '{{ role_path }}/vars'
+- name: install OS pkgs...
+  become: yes
+  become_user: root
+  package:
+    name: '{{ tfp_libvirt_os_pkgs | default([]) }}'
+    state: present
 - name: check for {{ tfp_libvirt_install_dir }}
   stat:
     path: '{{ tfp_libvirt_install_dir }}'
